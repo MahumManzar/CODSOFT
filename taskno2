@@ -1,0 +1,35 @@
+#TASK 2
+#Simple Calculator with Basic Arithmeic operations
+
+
+def simple_calculator():
+
+    number_1= float(input("Enter number 1 you want to calculate "))
+    number_2= float(input("Enter number 2 you want to calculate "))
+
+
+    operation = input("Select which operation you want to use (a = addition), (s = subtraction), (d = division), (m= multiplication) ")
+
+    if operation == 'a':
+        print("addition")
+        addition = number_1 + number_2
+        print("Result:", addition)
+    elif operation == 's':
+        print("subtraction")
+        subtraction = number_1 - number_2
+        print("Result:", subtraction)
+    elif operation == 'd':
+        print("division")
+        if number_2 != 0:
+            division = number_1 / number_2
+            print("Result:", division)
+        else:
+            print("Cannot divide by zero.")
+    elif operation == 'm':
+        print("multiplication")
+        multiplication = number_1 * number_2
+        print("Result:", multiplication)
+    else:
+        print("try again")
+
+simple_calculator()
