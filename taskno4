@@ -1,0 +1,70 @@
+#TASK 4
+#ROCK PAPER SCISSORS GAME
+
+import random
+import tkinter as tk
+from tkinter import messagebox
+
+class RockPaperScissorsGUI:
+
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Rock, Paper, Scissors Game")
+
+        self.user_score = 0
+        self.computer_score = 0
+
+        self.instructions_label = tk.Label(root, text="Welcome to Rock, Paper, Scissors Game!\n Please select from the following options by clicking one of the options.", fg="red")
+        self.instructions_label.pack(pady=10)
+
+        self.buttons_frame = tk.Frame(root)
+        self.buttons_frame.pack(pady=10)
+
+        choices = ["Rock", "Paper", "Scissors"]
+        for choice in choices:
+            button = tk.Button(self.buttons_frame, text=choice, command=lambda c=choice.lower(): self.play_game(c))
+            button.pack(side=tk.LEFT, padx=5)
+
+        self.next_button = tk.Button(root, text="Next", command=self.play_again)
+        self.next_button.pack(pady=10)
+        self.next_button.pack_forget() 
+
+    def play_game(self, user_choice):
+        computer_choice = random.choice(["rock", "paper", "scissors"])
+        result = self.determine_winner(user_choice, computer_choice)
+        self.show_result(result)
+
+    def determine_winner(self, user_pick, computer_choice):
+        if user_pick == computer_choice:
+            return "It's a tie!"
+        elif (
+            (user_pick == 'rock' and computer_choice == 'scissors') or
+            (user_pick == 'paper' and computer_choice == 'rock') or
+            (user_pick == 'scissors' and computer_choice == 'paper')
+        ):
+            self.user_score += 1
+            return f"You win! Computer chose {computer_choice.capitalize()}."
+        else:
+            self.computer_score += 1
+            return f"You lose! Computer chose {computer_choice.capitalize()}."
+
+    def show_result(self, result):
+        messagebox.showinfo("Result", result)
+        self.update_scores()
+        self.next_button.pack() 
+
+    def update_scores(self):
+        self.root.title(f"Your Score: {self.user_score} | Computer Score: {self.computer_score}")
+
+    def play_again(self):
+        self.next_button.pack_forget()  
+
+        if messagebox.askyesno("Play Again", "Do you want to play again?"):
+            self.instructions_label.config(text="Great! Select again", fg="red")
+        else:
+            self.root.destroy()
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = RockPaperScissorsGUI(root)
+    root.mainloop()
